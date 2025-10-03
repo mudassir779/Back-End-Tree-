@@ -73,3 +73,16 @@ export const getEstimates = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+export const deleteTestimonial = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedTestimonial = await Testimonials.findByIdAndDelete(id);
+        if (!deletedTestimonial) {
+            return res.status(404).json({ message: "Testimonial not found" });
+        }
+        res.status(200).json({ message: "Testimonial deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+};
