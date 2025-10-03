@@ -8,11 +8,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy all application code
+# Copy application code
 COPY . .
 
-# Expose the port your app uses
+# Expose port (change to your backend port)
 EXPOSE 5000
 
-# Start the application
+# Start command
 CMD ["npm", "start"]
