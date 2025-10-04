@@ -40,8 +40,9 @@ app.use('/api/request', requestRoutes);
 app.use('/api/dashboard/', dashboardRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 // For Local Development
 // if (process.env.NODE_ENV !== "production") {
