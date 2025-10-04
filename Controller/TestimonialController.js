@@ -1,16 +1,35 @@
 import Testimonials from "../Model/TestimonialModel.js";
 import RequestEstimate from "../Model/RequestEstimateModel.js";
+import { sendEstimateNotification } from '../utils/emailService.js';
 
 export const addTestimonials = async (req, res) => {
     try {
+        // Validate required fields
+        const { name, rating, content } = req.body;
+        
+        if (!name || !rating || !content) {
+            return res.status(400).json({ 
+                message: "Name, rating, and content are required fields" 
+            });
+        }
+
+        // Validate rating is between 1 and 5
+        if (rating < 1 || rating > 5 || !Number.isInteger(rating)) {
+            return res.status(400).json({ 
+                message: "Rating must be an integer between 1 and 5" 
+            });
+        }
+
         const testimonial = new Testimonials({
-            name: req.body.name,
-            rating: req.body.rating,
-            content: req.body.content
+            name: name.trim(),
+            rating: parseInt(rating),
+            content: content.trim()
         });
+        
         const newTestimonial = await testimonial.save();
         res.status(201).json(newTestimonial);
     } catch (err) {
+        console.error("Error creating testimonial:", err);
         res.status(400).json({ message: err.message });
     }
 };
@@ -35,7 +54,11 @@ export const submitEstimate = async (req, res) => {
             service: serviceRequested
         });
 
-        await newEstimate.save();
+        const savedEstimate = await newEstimate.save();
+        
+        // Send email notification
+        await sendEstimateNotification(savedEstimate);
+        
         res.status(201).json({ 
             success: true,
             message: 'Estimate submitted successfully! We will contact you soon.' 

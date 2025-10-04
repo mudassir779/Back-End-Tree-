@@ -1,6 +1,7 @@
 import Request from "../Model/RequestModel.js";
 import fs from 'fs';
 import path from 'path';
+import { sendRequestNotification } from '../utils/emailService.js';
 
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -47,6 +48,10 @@ const addRequest = async (req, res) => {
     });
 
     const savedRequest = await newRequest.save();
+    
+    // Send email notification
+    await sendRequestNotification(savedRequest);
+    
     res.status(201).json(savedRequest);
 
   } catch (error) {

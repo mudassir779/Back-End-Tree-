@@ -4,7 +4,7 @@ import { upload } from '../MiddleWares/Multer.js';
 
 const router = express.Router()
 
-router.post('/create-testimonials', upload.none(), addTestimonials)
+router.post('/create-testimonials', addTestimonials)
 router.get('/get-testimonials', getTestimonials)
 router.post('/submit-estimate', submitEstimate)
 router.get('/get-estimates', getEstimates);

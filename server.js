@@ -12,9 +12,9 @@ import testimonialRoutes from './Router/TestimonialRoutes.js';
 let app = express();
 connectDB();
 
-// Fixed CORS configuration - remove trailing slash from origin
+// Fixed CORS configuration - allow all localhost ports
 app.use(cors({
-    origin: process.env.FrontEnd_URL,
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']

@@ -8,7 +8,6 @@ const RequestSchema = new mongoose.Schema({
         Email: {
             type: String,
             required: true,
-            unique: true,
             match: [/^\S+@\S+\.\S+$/, 'Invalid email format']
         },
         Phone: { type: String, required: true }
