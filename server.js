@@ -19,11 +19,11 @@ app.use(cors({
         'http://localhost:5174', 
         'http://localhost:5175',
         'https://americantreesexpert.com',
-        'https://www.americantreesexpert.com'
+        'https://www.americantreesexpert.com',
+        'https://backend.americantreesexpert.com'
     ],
-    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    credentials: true
 }));
 
 // accept form data
